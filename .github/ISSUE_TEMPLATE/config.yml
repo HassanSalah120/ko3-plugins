@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/HassanSalah120/KO3-Pengu-Plugins/discussions
+    about: Ask questions, share ideas, or get help here
+  - name: Pengu Loader Community
+    url: https://chat.pengu.lol/
+    about: Join the Pengu Loader Discord for general help

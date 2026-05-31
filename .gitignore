@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.sln.docstates
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Env
+.env
+.env.local
