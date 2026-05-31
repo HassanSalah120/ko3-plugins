@@ -1633,6 +1633,19 @@ QOL.onToggle = function onToggle(key, val) {
     case 'presenceBio':
       if (val && QOL.settings.statusMessage) QOL.setStatusMessage(QOL.settings.statusMessage);
       break;
+    case 'autoReload':
+      if (val) {
+        const intervalMs = (QOL.settings.autoReloadInterval || 60) * 60 * 1000;
+        QOL.intervals.reload = setInterval(() => {
+          try { window.reloadClient(); } catch {}
+        }, intervalMs);
+      } else {
+        if (QOL.intervals.reload) {
+          clearInterval(QOL.intervals.reload);
+          QOL.intervals.reload = null;
+        }
+      }
+      break;
     case 'skinShards':
       break;
     case 'bgChampId':
@@ -1653,10 +1666,10 @@ QOL.onToggle = function onToggle(key, val) {
       QOL.applyCleanHomePage(!!val);
       break;
     case 'masteryOverlay':
-      // Handled by phase handler
+      if (!val) QOL.removeMasteryOverlay();
       break;
     case 'autoSkipEOG':
-      // Handled by phase handler
+      if (!val) QOL.stopEOGSkip();
       break;
     case 'desktopNotifs':
       if (val && 'Notification' in window && Notification.permission === 'default') {
