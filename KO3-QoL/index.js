@@ -1219,10 +1219,21 @@ QOL.render = async function render(panelInner) {
 </div>
 <div class="ko3-qol-body">
   <input class="ko3-qol-ssr" type="text" placeholder="Search settings..." id="ko3-qol-settings-search" spellcheck="false">
+  <div class="ko3-qol-cats" id="ko3-qol-cats">
+    <span class="ko3-qol-cat active" data-cat="all">All</span>
+    <span class="ko3-qol-cat" data-cat="matchmaking">Matchmaking</span>
+    <span class="ko3-qol-cat" data-cat="champselect">Champ Select</span>
+    <span class="ko3-qol-cat" data-cat="endgame">End of Game</span>
+    <span class="ko3-qol-cat" data-cat="social">Social</span>
+    <span class="ko3-qol-cat" data-cat="profile">Profile</span>
+    <span class="ko3-qol-cat" data-cat="custom">Custom</span>
+    <span class="ko3-qol-cat" data-cat="display">Display</span>
+    <span class="ko3-qol-cat" data-cat="system">System</span>
+  </div>
 
   <!-- Matchmaking -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Matchmaking</div>
+  <div class="ko3-qol-grp" data-cat="matchmaking">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h12"/></svg>Matchmaking</div>
     ${opt('autoAccept', 'Auto-Accept', 'Automatically accept ready checks', s.autoAccept)}
     ${opt('autoRequeue', 'Auto-Requeue', 'Re-enter queue after game ends', s.autoRequeue)}
     ${opt('queuePopSound', 'Queue Pop Sound', 'Play a sound when ready check appears', s.queuePopSound, `<div class="ko3-qol-sl-row"><input type="range" class="ko3-qol-sl" data-key="queuePopVolume" value="${s.queuePopVolume}" min="0" max="100"><span class="ko3-qol-sl-v" data-label="queuePopVolume">${s.queuePopVolume}</span></div>`)}
@@ -1232,8 +1243,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- Champion Select -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Champion Select</div>
+  <div class="ko3-qol-grp" data-cat="champselect">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><path d="M14 2l-4 6h3l-2 8 7-10h-3l4-6zM4 18l4-4M18 18l-4-4"/></svg>Champion Select</div>
     ${opt('dodgeButton', 'Dodge Button', 'Floating dodge button in champ select', s.dodgeButton)}
     ${opt('timerOverlay', 'Timer Overlay', 'Large countdown in champ select', s.timerOverlay)}
     ${opt('queueStats', 'Queue Timer', 'Show elapsed queue time', s.queueStats)}
@@ -1246,8 +1257,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- End of Game -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">End of Game</div>
+  <div class="ko3-qol-grp" data-cat="endgame">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 14l2.5 8-6-3-6 3 2.5-8"/></svg>End of Game</div>
     ${opt('skipHonor', 'Skip Honor Screen', 'Auto-click skip on honor screen', s.skipHonor)}
     ${opt('autoSkipEOG', 'Auto-Skip EOG', 'Skip end-of-game stats screen', s.autoSkipEOG, `<div class="ko3-qol-sl-row"><input type="range" class="ko3-qol-sl" data-key="autoSkipEOGDelay" value="${s.autoSkipEOGDelay}" min="10" max="120"><span class="ko3-qol-sl-v" data-label="autoSkipEOGDelay">${s.autoSkipEOGDelay}s</span></div>`)}
     ${opt('autoHonor', 'Auto-Honor', 'Automatically honor a player', s.autoHonor, `<div class="ko3-qol-sub"><select class="ko3-qol-dd" data-key="honorTarget"><option value="random"${s.honorTarget==='random'?' selected':''}>Random</option><option value="best"${s.honorTarget==='best'?' selected':''}>Best KDA</option><option value="first"${s.honorTarget==='first'?' selected':''}>First</option><option value="support"${s.honorTarget==='support'?' selected':''}>Support</option></select></div>`)}
@@ -1256,8 +1267,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- Social & Tools -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Social &amp; Tools</div>
+  <div class="ko3-qol-grp" data-cat="social">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>Social &amp; Tools</div>
     ${opt('friendsNotifier', 'Friends Notifier', 'Notify when friends change status', s.friendsNotifier)}
     <div class="ko3-qol-opt" style="cursor:default">
       <div><div class="ko3-qol-opt-lbl">Quick Invite Recent</div><div class="ko3-qol-opt-desc">Invite recent teammates to lobby</div></div>
@@ -1274,8 +1285,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- Profile -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Profile</div>
+  <div class="ko3-qol-grp" data-cat="profile">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Profile</div>
     <div class="ko3-qol-opt" style="flex-direction:column;align-items:stretch;cursor:default">
       <div style="display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer">
         <div><div class="ko3-qol-opt-lbl">Background Image</div><div class="ko3-qol-opt-desc">Set profile loading screen background</div></div>
@@ -1313,8 +1324,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- Custom Games -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Custom Games</div>
+  <div class="ko3-qol-grp" data-cat="custom">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4M14 12h4M10 12V8M14 12v4"/></svg>Custom Games</div>
     <div style="padding:10px 12px;display:flex;flex-direction:column;gap:6px;background:rgba(0,0,0,.2);border:1px solid rgba(200,170,110,.05);border-radius:8px">
       <div class="ko3-qol-sub">
         <span style="color:#5b5340;font-size:9px;font-weight:600;min-width:34px">Mode</span>
@@ -1353,8 +1364,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- Notifications & Display -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">Notifications &amp; Display</div>
+  <div class="ko3-qol-grp" data-cat="display">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Notifications &amp; Display</div>
     <div class="ko3-qol-opt" style="flex-direction:column;align-items:stretch;cursor:default">
       <div style="display:flex;align-items:center;justify-content:space-between;width:100%;cursor:pointer">
         <div><div class="ko3-qol-opt-lbl">Desktop Notifications</div><div class="ko3-qol-opt-desc">OS notifications for in-game events</div></div>
@@ -1371,8 +1382,8 @@ QOL.render = async function render(panelInner) {
   </div>
 
   <!-- System -->
-  <div class="ko3-qol-grp">
-    <div class="ko3-qol-grp-lbl">System</div>
+  <div class="ko3-qol-grp" data-cat="system">
+    <div class="ko3-qol-grp-lbl"><svg class="ko3-qol-grp-ico" viewBox="0 0 24 24" fill="none" stroke="#c89b3c" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>System</div>
     ${opt('autoReload', 'Auto-Reload', 'Reload client periodically to free memory', s.autoReload, `<div class="ko3-qol-sl-row"><input type="range" class="ko3-qol-sl" data-key="autoReloadInterval" value="${s.autoReloadInterval}" min="15" max="240" step="5"><span class="ko3-qol-sl-v" data-label="autoReloadInterval">${s.autoReloadInterval}m</span></div>`)}
     ${opt('perfMode', 'Performance Mode', 'Disable CSS animations & transitions', s.perfMode)}
     ${opt('appearOffline', 'Appear Offline', 'Set chat status to offline', s.appearOffline)}
@@ -1412,6 +1423,24 @@ QOL.render = async function render(panelInner) {
       });
     });
   }
+
+  // Category filter pills
+  panelInner.querySelectorAll('.ko3-qol-cat').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const cat = pill.dataset.cat;
+      const cats = panelInner.querySelector('.ko3-qol-cats');
+      cats.querySelectorAll('.ko3-qol-cat').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      panelInner.querySelectorAll('.ko3-qol-grp').forEach(g => {
+        g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+      });
+      // Clear search when changing category
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.dispatchEvent(new Event('input'));
+      }
+    });
+  });
 
   // Toggle switches
   panelInner.querySelectorAll('.ko3-qol-tog').forEach(tog => {

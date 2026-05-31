@@ -136,6 +136,40 @@
 }
 .ko3-qol-ssr::placeholder { color: #4a4335; }
 
+/* ── Category Filter Pills ── */
+.ko3-qol-cats {
+  display: flex;
+  gap: 5px;
+  margin: 0 0 12px;
+  padding: 0;
+  flex-wrap: wrap;
+}
+.ko3-qol-cat {
+  padding: 5px 12px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(200,170,110,.08);
+  border-radius: 14px;
+  color: #5b5340;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .25s cubic-bezier(.4,0,.2,1);
+  user-select: none;
+}
+.ko3-qol-cat:hover {
+  color: #a09880;
+  border-color: rgba(200,170,110,.2);
+  background: rgba(200,170,110,.04);
+}
+.ko3-qol-cat.active {
+  color: #c89b3c;
+  border-color: rgba(200,155,60,.4);
+  background: rgba(200,155,60,.12);
+  box-shadow: 0 0 12px rgba(200,155,60,.08);
+}
+
 /* ── Groups ── */
 .ko3-qol-grp {
   margin-bottom: 14px;
@@ -150,13 +184,19 @@
   padding: 0 8px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .ko3-qol-grp-lbl::after {
   content: '';
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, rgba(200,170,110,.08), transparent);
+}
+.ko3-qol-grp-ico {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: .7;
 }
 
 /* ── Option Row ── */
