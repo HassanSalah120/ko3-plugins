@@ -1412,16 +1412,49 @@ QOL.render = async function render(panelInner) {
   // Settings search
   const searchInput = panelInner.querySelector('#ko3-qol-settings-search');
   if (searchInput) {
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.toLowerCase();
+    const getActiveCat = () => {
+      const active = panelInner.querySelector('.ko3-qol-cat.active');
+      return active ? active.dataset.cat : 'all';
+    };
+
+    const doSearch = () => {
+      const q = searchInput.value.toLowerCase().trim();
+      const cat = getActiveCat();
+
+      // First apply category filter
+      panelInner.querySelectorAll('.ko3-qol-grp').forEach(g => {
+        g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+      });
+
+      // If no search query, show all options in visible groups
+      if (!q) {
+        panelInner.querySelectorAll('.ko3-qol-opt').forEach(o => o.style.display = '');
+        panelInner.querySelectorAll('.ko3-qol-grp > div:not(.ko3-qol-grp-lbl)').forEach(el => el.style.display = '');
+        return;
+      }
+
+      // Search options
       panelInner.querySelectorAll('.ko3-qol-opt').forEach(o => {
         o.style.display = o.textContent.toLowerCase().includes(q) ? 'flex' : 'none';
       });
-      panelInner.querySelectorAll('.ko3-qol-grp').forEach(g => {
-        const vis = Array.from(g.querySelectorAll('.ko3-qol-opt')).some(o => o.style.display !== 'none');
-        g.style.display = vis ? '' : 'none';
+
+      // Search non-option group content (custom games, etc.)
+      panelInner.querySelectorAll('.ko3-qol-grp > div:not(.ko3-qol-grp-lbl):not(.ko3-qol-opt)').forEach(el => {
+        el.style.display = el.textContent.toLowerCase().includes(q) ? '' : 'none';
       });
-    });
+
+      // Show/hide groups based on content match
+      panelInner.querySelectorAll('.ko3-qol-grp').forEach(g => {
+        if (g.style.display === 'none') return; // already hidden by category filter
+        const grpLbl = g.querySelector('.ko3-qol-grp-lbl');
+        const lblMatch = grpLbl && grpLbl.textContent.toLowerCase().includes(q);
+        const anyVisible = Array.from(g.querySelectorAll('.ko3-qol-opt, .ko3-qol-grp > div:not(.ko3-qol-grp-lbl)'))
+          .some(el => el.style.display !== 'none');
+        g.style.display = (lblMatch || anyVisible) ? '' : 'none';
+      });
+    };
+
+    searchInput.addEventListener('input', doSearch);
   }
 
   // Category filter pills
@@ -1431,14 +1464,8 @@ QOL.render = async function render(panelInner) {
       const cats = panelInner.querySelector('.ko3-qol-cats');
       cats.querySelectorAll('.ko3-qol-cat').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
-      panelInner.querySelectorAll('.ko3-qol-grp').forEach(g => {
-        g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
-      });
-      // Clear search when changing category
-      if (searchInput) {
-        searchInput.value = '';
-        searchInput.dispatchEvent(new Event('input'));
-      }
+      // Re-run search (or reset if empty) to respect new category
+      if (searchInput) searchInput.dispatchEvent(new Event('input'));
     });
   });
 
